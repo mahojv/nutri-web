@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@theme{
+    --color-btnbgcolor: #4770b1;
+
+}
 
 main{
     font-family: "Bebas Neue", sans-serif;

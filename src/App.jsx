@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Pacientes from './pages/Pacientes'
 import MeatPlans from './pages/MeatPlans'
 import Excercise from './pages/Excercise'
+import NewUserForm from './components/NewUserForm'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route element={<AuthLayout/>}>
       <Route path='/' element={<Home/>} />
       <Route path='/Patience' element={<Pacientes/>} />
+      <Route path="/New-User" element={<NewUserForm/>} />
       <Route path='/meal-plans' element={<MeatPlans/>} />
       <Route path='/exercise' element={<Excercise/>} />
       <Route

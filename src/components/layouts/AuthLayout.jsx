@@ -14,7 +14,6 @@ export default function AuthLayout() {
         console.error(error);
       });
   }, []);
-  console.log(data)
 
   return (
     <div className='relative md:static w-full h-screen'>
@@ -59,7 +58,7 @@ export default function AuthLayout() {
         </nav>
       </div>
 
-      <main className='px-[20px] py-[10px] bg-[#fdfdfe] h-screen' >
+      <main className='px-[20px] w-full pt-[30px] py-[10px] bg-[#fdfdfe] h-screen overflow-y-auto' >
         <Outlet />
       </main>
 

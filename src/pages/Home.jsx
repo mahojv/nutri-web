@@ -3,7 +3,7 @@ import React from 'react'
 export default function Home() {
   return (
     <div className='flex flex-col gap-5 items-center   justify-center'>
-      <div className='w-full flex flex-col gap-3 pt-[30px] '>
+      <div className='w-full flex flex-col gap-3  '>
         <h1 className='text-4xl ' >Dashboard</h1>
         <h2 className='mt-[10px]'>Bienvenida, janet </h2>
       </div>
