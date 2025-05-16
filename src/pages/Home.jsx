@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { users } from '../axios/users/Users';
+import { getWeekRange, isInCurrentMonth, obtainDate } from '../hooks/useDates';
+import useFilterDates from '../hooks/useFilterDates';
 
 export default function Home() {
+
+  const [usersData, setUsersData] = useState([])
+  const [free, setFree] = useState(false)
+
+  useEffect(() => {
+    users()
+      .then((rs) => setUsersData(rs))
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  console.log(usersData)
+
+const [today, assignmentsForToday, assignmentsThisWeek, assignmentsThisMonth] = useFilterDates(usersData)
+
+
+  console.log(assignmentsThisMonth)
+
   return (
     <div className='flex flex-col gap-5 items-center   justify-center'>
       <div className='w-full flex flex-col gap-3  '>
@@ -11,15 +33,15 @@ export default function Home() {
         <div role='container1' className='w-full max-w-[500px] shadow-2xl rounded-2xl flex flex-wrap gap-5 justify-center items-center p-3 '>
           <div className=' w-[45%] max-w-[200px] h-[100px] flex flex-col items-center justify-around'>
             <h3>Pacientes</h3>
-            <h4>24</h4>
+            <h4>{usersData.length - 1}</h4>
           </div>
           <div className=' w-[45%] max-w-[200px] h-[100px] flex flex-col items-center justify-around' role='card2'>
             <h3>Esta semana</h3>
-            <h4>3</h4>
+            <h4>{assignmentsThisWeek.length}</h4>
           </div>
           <div className=' w-[45%] max-w-[200px] h-[100px] flex flex-col items-center justify-around' role='card3'>
             <h3>Asignados este mes</h3>
-            <h4>15</h4>
+            <h4>{assignmentsThisMonth.length}</h4>
           </div>
           <div className=' w-[45%] max-w-[200px] h-[100px] flex flex-col items-center justify-around' role='card4'>
             <h3>Notas</h3>
@@ -30,14 +52,21 @@ export default function Home() {
         </div>
         <div role='container2' className=' w-full max-w-[500px]  shadow-2xl  rounded-2xl p-5'>
           <h3 className='text-2xl mb-5'>Proximas asignaciones</h3>
-          <div className=' flex  justify-between'>
-            <h2 className='text-[16px]'>Manuel Cardenas</h2>
-            <h2 className='text-[15px] font-light'>Hoy</h2>
-          </div>
-          <div className=' flex  justify-between'>
-            <h2>Javier Madrigal</h2>
-            <h2>Hoy</h2>
-          </div>
+
+          {
+            assignmentsForToday.length > 0 ? (
+              assignmentsForToday.map(item => (
+                <div key={item.id} className='flex justify-between'>
+                  <h2 className='text-[16px]'>{item.firstname} {item.lastname}</h2>
+                  <h2 className='text-[15px] font-light'>Hoy</h2>
+                </div>
+              ))
+            ) : (
+              <div className='flex justify-between'>
+                <h2 className='text-[16px]'>No tienes asignaciones</h2>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>

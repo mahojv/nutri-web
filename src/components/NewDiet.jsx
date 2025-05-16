@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { createUser, getRoles } from '../axios/users/Users';
 import { useNavigate } from 'react-router';
+import useCreate from '../hooks/useCreate';
+import Select from 'react-select';
+import { createDiet } from '../axios/meatPlans/meatPlans';
 import Swal from 'sweetalert2';
 
 
-export default function NewUserForm() {
+export default function NewDiet() {
     const navigate = useNavigate()
     // Lista de states
-    const [roles, setRoles] = useState([])
+
 
     const { register, handleSubmit, watch } = useForm();
+    const [roles, meal, userList] = useCreate()
 
     const selectedRoleId = watch("role_id");
 
@@ -21,21 +24,20 @@ export default function NewUserForm() {
 
     async function handleUserCreate(requestData) {
         try {
-            //   requestData.schools = [requestData.schools];
+            requestData.comidas = seleccionadas.map(item => item.value);
 
-            const data = await createUser(requestData);
+            const data = await createDiet(requestData);
             if (data === 201) {
-                // fetchData();
-                // alert("Usuario registrado con éxito");
+
                 Swal.fire({
-                    title: "Usuario registrado con éxito!",
+                    title: "Dieta creada con éxito!",
                     icon: "success",
                     draggable: true
                 });
                 navigate(-1)
             }
         } catch (error) {
-            console.error("Error al registrar usuario", error);
+            console.error("Error al registrar dieta", error);
             if (
                 error.response &&
                 error.response.data &&
@@ -50,13 +52,15 @@ export default function NewUserForm() {
         }
     }
 
-    useEffect(() => {
-        getRoles()
-            .then((rol) => setRoles(rol))
-            .catch((error) => console.error(error));
-    }, []);
+    const opciones = meal.map(r => ({ value: r.id, label: r.name }));
 
 
+    const [seleccionadas, setSeleccionadas] = useState([]);
+
+    const handleChange = (selecciones) => {
+        setSeleccionadas(selecciones);
+    };
+    console.log(meal)
 
 
     return (
@@ -97,80 +101,52 @@ export default function NewUserForm() {
                     className="flex flex-wrap border gap-1 mt-4 w-[90%] max-w-[450px] justify-center bg-white shadow-lg p-6 rounded-md"
                     onSubmit={handleSubmit(handleUserCreate)}
                 >
-                    <label htmlFor="firstname">Primer Nombre</label>
+                    <label htmlFor="name">Nombre de dieta</label>
                     <input
                         type="text"
-                        id="firstname"
-                        {...register("firstname")}
+                        id="name"
+                        {...register("name")}
                         required
                         className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
                     />
 
-                    <label htmlFor="middle_name">Segundo Nombre</label>
-                    <input
-                        type="text"
-                        id="middle_name"
-                        {...register("middle_name")}
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-
-                    <label htmlFor="lastname">Primer Apellido</label>
-                    <input
-                        type="text"
-                        id="lastname"
-                        {...register("lastname")}
-                        required
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-
-                    <label htmlFor="second_lastname">Segundo Apellido</label>
-                    <input
-                        type="text"
-                        id="second_lastname"
-                        {...register("second_lastname")}
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-                    <label htmlFor="phone">Telefono</label>
-                    <input
-                        type="text"
-                        id="phone"
-                        {...register("phone")}
-                        required
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        {...register("email")}
-                        required
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        type="password"
-                        id="password"
-                        {...register("password")}
-                        required
-                        className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
-                    />
-
-                    <label htmlFor="roles_id">Rol</label>
+                    <label htmlFor="users_id">Asignar A</label>
                     <select
-                        id="roles_id"
-                        {...register("roles_id")}
+                        id="users_id"
+                        {...register("users_id")}
                         required
                         className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
                     >
-                        <option value="">Selecciona un rol</option>
-                        {roles.map((rol) => (
-                            <option key={rol.id} value={rol.id}>
-                                {rol.name}
+                        <option value="">Selecciona un paciente</option>
+                        {userList.map((user) => (
+                            <option key={user.id} value={user.id}>
+                                {user.firstname} {user.lastname}
                             </option>
                         ))}
                     </select>
+
+                    <div>
+                        <label htmlFor="comidas" className="block mb-2 font-bold">Selecciona los platillos:</label>
+                        <Select
+                            id="comidas"
+                            
+                            isMulti
+                            options={opciones}
+                            onChange={handleChange}
+                            placeholder="Elige uno o varios platillos..."
+                        />
+
+                        <div className="mt-4">
+                            <h3 className="font-semibold">Platillos seleccionados:</h3>
+                            <ul className="list-disc pl-5">
+                                {seleccionadas.map((item) => (
+                                    <li key={item.value}>{item.label}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+
+
 
 
 
@@ -178,7 +154,7 @@ export default function NewUserForm() {
                         type="submit"
                         className="bg-blue-500 text-white mt-4 px-4 h-[40px] rounded-md hover:cursor-pointer"
                     >
-                        Crear Usuario
+                        Crear Plan Alimenticio
                     </button>
                 </form>
             </div>

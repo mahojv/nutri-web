@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Route, Routes } from 'react-router'
 import { users } from '../axios/users/Users';
+import { obtainDate } from '../hooks/useDates';
 
 export default function Pacientes() {
 
@@ -13,7 +14,10 @@ export default function Pacientes() {
                 console.error(error);
             });
     }, []);
-    console.log(uData)
+
+
+
+
 
 
     return (
@@ -50,7 +54,7 @@ export default function Pacientes() {
                                 Nombre
                             </th>
                             <th scope="col" className="px-6 py-5">
-                                Teléfono
+                                Próxima Visita
                             </th>
                             <th scope="col" className="px-6 py-5">
                                 Administrar
@@ -62,18 +66,20 @@ export default function Pacientes() {
 
                     <tbody>
 
-                        
+
 
                         {
                             uData.map((item => {
+
+                                const dt= obtainDate(item.nxtvisit)
 
                                 return (
                                     <tr key={item.id} className="border-b  hover:bg-neutral-100 break-all  ">
                                         <td scope="row" className="px-6 py-5 whitespace-normal break-words ">
                                             {item.firstname} {item.middle_name} {item.lastname} {item.second_lastname}
                                         </td>
-                                        <td className="px-6 py-5">{item.phone}</td>
-                                        <td className="px-6 py-5"><button className='bg-btnbgcolor text-white px-2 py-1 rounded-md text-[10px] cursor-pointer' > Administrar </button></td>
+                                        <td className="px-6 py-5">{dt}</td>
+                                        <td className="px-6 py-5"><Link className='bg-btnbgcolor text-white px-2 py-1 rounded-md text-[10px] cursor-pointer' to={`/Patience/${item.id}`} > Administrar </Link></td>
 
                                     </tr>
                                 )

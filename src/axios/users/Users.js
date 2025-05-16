@@ -26,3 +26,12 @@ export async function createUser(request) {
     throw error;
   }
 }
+
+export async function usersById(id) {
+  try {
+    const { data } = await instance.get(`/users/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
