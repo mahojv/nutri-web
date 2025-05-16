@@ -35,3 +35,25 @@ export async function usersById(id) {
     throw error;
   }
 }
+
+export async function modifyUsers(id, requestData) {
+  try {
+    const { status } = await instance.put(`/users/${id}` , requestData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return status;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function logout() {
+  try {
+    const { status } = await instance.post("/auth/logout");
+    return status;
+  } catch (error) {
+    throw error;
+  }
+}

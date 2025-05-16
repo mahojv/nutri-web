@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Link, Outlet } from 'react-router'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router'
 import { profile } from '../../axios/auth/auth';
+import { logout } from '../../axios/users/Users';
+import Cookies from "js-cookie";
+import useDetectScroll from '../../hooks/useDetectScroll';
 
 
 export default function AuthLayout() {
 
+  const navigate = useNavigate();
   const [data, setData] = useState("")
+
+
+  const scrollRef = useRef(null);
+  const { showNav } = useDetectScroll(scrollRef);
 
   useEffect(() => {
     profile()
@@ -15,10 +23,25 @@ export default function AuthLayout() {
       });
   }, []);
 
+  async function handleLogout() {
+    try {
+      const status = await logout();
+      if (status === 200) {
+        Cookies.remove("token");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <div className='relative md:static w-full h-screen'>
+    <div className='relative md:static w-full min-h-screen '>
       <div>
-        <nav className='w-[80%] md:w-full h-20 md:h-fit  border absolute md:static bottom-8 left-1/2 -translate-x-1/2 md:translate-0 md:rounded-none rounded-2xl shadow-2xl bg-[#111820] text-white md:flex md:justify-between md:items-center md:py-2.5 md:px-5 '>
+        <nav className={`
+  fixed bottom-8 left-1/2 -translate-x-1/2
+  w-[80%] md:w-full h-20  md:static md:translate-0  rounded-2xl md:rounded-none  shadow-2xl bg-[#111820] text-white border  transition-all duration-300  ${showNav ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}  md:opacity-100 md:translate-y-0 md:pointer-events-auto
+`}>
 
           <div>
             <figure className='w-[80px] bg-amber-50 hidden md:block' ><img src="https://cdn.beacons.ai/user_content/XhjsbFrm2vdbpccyiFsaE6MXjJA3/referenced_images/f5f52d28-3d9b-4143-ad16-1d0260cc05cc__website__522e5092-c9a5-44cd-9de2-3e721c040d86__header__logo__23ce3481-2059-4eb2-b5ad-e2ca3cf58e6f.jpg?t=1736033571888" alt="" /></figure>
@@ -47,20 +70,31 @@ export default function AuthLayout() {
               </svg>
               <p>Planes Alimenticios</p>
             </Link>
-            <Link className=' w-[25%]  text-center text-[10px] px-1 h-full items-center flex flex-col justify-center' to="/exercise">
+            {/* <Link className=' w-[25%]  text-center text-[10px] px-1 h-full items-center flex flex-col justify-center' to="/exercise">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605" />
               </svg>
               <p>Planes de Ejercicio</p>
-            </Link>
+            </Link> */}
+            <button className=' w-[25%]  text-center text-[10px] px-1 h-full items-center flex flex-col justify-center' onClick={handleLogout}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+
+              <p>Cerrar Sesión</p>
+            </button>
           </div>
 
         </nav>
       </div>
 
-      <main className='px-[20px] w-full pt-[30px] py-[10px] bg-[#fdfdfe] h-screen overflow-y-auto' >
+      <main
+        ref={scrollRef}   className='overflow-y-auto h-[calc(100vh-0px)] py-5 px-5 bg-[#fdfdfe]'
+      >
         <Outlet />
       </main>
+
+
 
     </div>
   )
