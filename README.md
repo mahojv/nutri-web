@@ -1,12 +1,59 @@
-# React + Vite
+# 🥗 nutri-web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+¡Bienvenido al proyecto **nutri-web**! 🚀  
+Esta aplicación web está diseñada para facilitar la gestión nutricional de usuarios, permitiendo el seguimiento de dietas, registro de alimentos y control de progreso. 👩‍⚕️📊
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades principales
 
-## Expanding the ESLint configuration
+- 📝 **Registro de usuarios:** Permite crear cuentas y gestionar perfiles personales.
+- 🍽️ **Gestión de dietas:** Los usuarios pueden crear, editar y eliminar planes de alimentación personalizados.
+- 📅 **Planificación de comidas:** Agenda diaria/semanal para organizar las comidas.
+- 🥦 **Registro de alimentos:** Base de datos de alimentos para registrar y consultar información nutricional.
+- 📈 **Seguimiento de progreso:** Visualización de gráficos y estadísticas sobre el avance nutricional.
+- 🔔 **Notificaciones:** Recordatorios automáticos para mantener hábitos saludables.
+- 🛡️ **Autenticación y seguridad:** Acceso seguro mediante inicio de sesión y protección de datos personales.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologías y librerías utilizadas
+
+- ⚛️ **React:**  
+    Utilizado para construir la interfaz de usuario en todos los componentes principales (registro, dashboard, formularios, etc.).
+
+- 🌐 **React Router:**  
+    Permite la navegación entre las diferentes secciones de la app (inicio, perfil, dietas, progreso).
+
+- 🎨 **Material-UI:**  
+    Usado para el diseño visual y los componentes estilizados en toda la aplicación.
+
+- 📦 **Redux:**  
+    Maneja el estado global de la aplicación, especialmente para la gestión de usuarios y dietas.
+
+- 🔒 **JWT (JSON Web Token):**  
+    Implementado en la autenticación para proteger rutas y datos sensibles.
+
+- 📊 **Chart.js:**  
+    Utilizado en la sección de progreso para mostrar gráficos interactivos.
+ 
+- 🌍 **Axios:**  
+    Realiza las peticiones HTTP al backend en los servicios de registro, login y gestión de datos.
+
+    - 📅 **react-datepicker:**  
+        Permite a los usuarios seleccionar fechas de manera intuitiva en formularios y planificadores.
+
+    - 🖼️ **react-dropzone:**  
+        Permite la carga de imágenes y archivos de manera sencilla mediante arrastrar y soltar.
+
+    - 🧩 **react-hook-form:**  
+        Alternativa ligera para el manejo de formularios y validaciones.
+
+    - 🧹 **eslint & prettier:**  
+        Herramientas para mantener la calidad y el formato del código fuente.
+
+---
+
+
+
+¡Esperamos que disfrutes usando **nutri-web** y logres tus objetivos nutricionales! 💪🥗
