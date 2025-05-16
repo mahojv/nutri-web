@@ -1,20 +1,16 @@
 
 export function obtainDate(evalDate) {
-
   const day = new Date(evalDate)
   const options = {
      day: 'numeric' ,month: 'long'
   };
   const date = day.toLocaleDateString(undefined, options)
-
   return date
-
-
 }
 
 export function getWeekRange(date = new Date()) {
-  const day = date.getDay(); // 0 (domingo) a 6 (sábado)
-  const diffToMonday = day === 0 ? -6 : 1 - day; // Si es domingo, retrocede 6 días
+  const day = date.getDay();
+  const diffToMonday = day === 0 ? -6 : 1 - day; 
   const monday = new Date(date);
   monday.setDate(date.getDate() + diffToMonday);
   monday.setHours(0, 0, 0, 0);

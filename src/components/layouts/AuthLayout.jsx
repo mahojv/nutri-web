@@ -39,9 +39,17 @@ export default function AuthLayout() {
     <div className='relative md:static w-full min-h-screen '>
       <div>
         <nav className={`
-  fixed bottom-8 left-1/2 -translate-x-1/2
-  w-[80%] md:w-full h-20  md:static md:translate-0  rounded-2xl md:rounded-none  shadow-2xl bg-[#111820] text-white border  transition-all duration-300  ${showNav ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}  md:opacity-100 md:translate-y-0 md:pointer-events-auto
-`}>
+    fixed bottom-8 left-1/2 -translate-x-1/2
+    w-[80%] md:w-full h-20 md:static md:translate-0
+    rounded-2xl md:rounded-none
+    shadow-2xl bg-[#111820] text-white border
+    transition-all duration-300
+    ${showNav ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
+    md:opacity-100 md:translate-y-0 md:pointer-events-auto md:h-fit
+    flex items-center
+    md:justify-between
+    px-4
+  `}>
 
           <div>
             <figure className='w-[80px] bg-amber-50 hidden md:block' ><img src="https://cdn.beacons.ai/user_content/XhjsbFrm2vdbpccyiFsaE6MXjJA3/referenced_images/f5f52d28-3d9b-4143-ad16-1d0260cc05cc__website__522e5092-c9a5-44cd-9de2-3e721c040d86__header__logo__23ce3481-2059-4eb2-b5ad-e2ca3cf58e6f.jpg?t=1736033571888" alt="" /></figure>

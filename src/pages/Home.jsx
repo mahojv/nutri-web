@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { users } from '../axios/users/Users';
-import { getWeekRange, isInCurrentMonth, obtainDate } from '../hooks/useDates';
 import useFilterDates from '../hooks/useFilterDates';
 
 export default function Home() {
@@ -27,7 +26,7 @@ const [today, assignmentsForToday, assignmentsThisWeek, assignmentsThisMonth] = 
     <div className='flex flex-col gap-5 items-center   justify-center'>
       <div className='w-full flex flex-col gap-3  '>
         <h1 className='text-4xl ' >Dashboard</h1>
-        <h2 className='mt-[10px]'>Bienvenida, janet </h2>
+        <h2 className='mt-[10px] text-2xl'>Bienvenida, janet </h2>
       </div>
       <div role='main' className='mt-[20px] flex flex-col md:flex-row     gap-8 w-[90%] items-center justify-center' >
         <div role='container1' className='w-full max-w-[500px] shadow-2xl rounded-2xl flex flex-wrap gap-5 justify-center items-center p-3 '>

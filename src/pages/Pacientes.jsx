@@ -6,6 +6,8 @@ import { obtainDate } from '../hooks/useDates';
 export default function Pacientes() {
 
     const [uData, setUData] = useState([])
+    const [inputFilter, setInputFilter] = useState("")
+    const [search,setSearch] = useState("")
 
     useEffect(() => {
         users()
@@ -14,7 +16,21 @@ export default function Pacientes() {
                 console.error(error);
             });
     }, []);
+    console.log(uData)
 
+    const filteredData = uData.filter(item => {
+        if (!search) return true; // si no hay filtro, devuelve todos
+        return item.firstname.toLowerCase().includes(search.toLowerCase());
+    });
+
+    function handleInput(e) {
+        setInputFilter(e.target.value);
+    }
+
+    function handleSearch() {
+        setSearch(inputFilter)
+        
+    }
 
 
 
@@ -30,9 +46,9 @@ export default function Pacientes() {
                             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                         </figure>
-                        <input className=' h-full w-full' type="text" placeholder='Buscar Paciente' />
+                        <input className=' h-full w-full' type="text" onChange={handleInput} placeholder='Buscar Paciente' />
                     </span>
-                    <button className='bg-btnbgcolor text-white px-9 py-1 rounded-md'>search</button>
+                    <button className='bg-btnbgcolor text-white px-9 py-1 rounded-md' onClick={handleSearch}>search</button>
                 </div>
                 <button className='bg-btnbgcolor text-white px-9 py-1  h-10 md:h-12 border max-w-[500px] rounded-md flex gap-3 justify-center items-center'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -69,9 +85,9 @@ export default function Pacientes() {
 
 
                         {
-                            uData.map((item => {
+                            filteredData.map((item => {
 
-                                const dt= obtainDate(item.nxtvisit)
+                                const dt = obtainDate(item.nxtvisit)
 
                                 return (
                                     <tr key={item.id} className="border-b  hover:bg-neutral-100 break-all  ">

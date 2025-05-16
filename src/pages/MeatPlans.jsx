@@ -12,7 +12,7 @@ export default function MeatPlans() {
         console.error(error);
       });
   }, []);
-  console.log(diet)
+  
 
   return (
     <div className='flex flex-col gap-3 '>

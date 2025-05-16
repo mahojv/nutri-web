@@ -25,7 +25,7 @@ export default function NewDiet() {
     async function handleUserCreate(requestData) {
         try {
             requestData.comidas = seleccionadas.map(item => item.value);
-
+            // console.log(requestData)
             const data = await createDiet(requestData);
             if (data === 201) {
 
@@ -60,7 +60,7 @@ export default function NewDiet() {
     const handleChange = (selecciones) => {
         setSeleccionadas(selecciones);
     };
-    console.log(meal)
+
 
 
     return (
@@ -129,7 +129,7 @@ export default function NewDiet() {
                         <label htmlFor="comidas" className="block mb-2 font-bold">Selecciona los platillos:</label>
                         <Select
                             id="comidas"
-                            
+
                             isMulti
                             options={opciones}
                             onChange={handleChange}
