@@ -9,6 +9,8 @@ import Excercise from './pages/Excercise'
 import NewUserForm from './components/NewUserForm'
 import NewDiet from './components/NewDiet'
 import UserAdmin from './components/UserAdmin'
+import MealList from './pages/MealList'
+import NewMeal from './components/NewMeal'
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
       <Route path='/Patience' element={<Pacientes/>} />
       <Route path="/New-User" element={<NewUserForm/>} />
       <Route path="/New-Diet" element={<NewDiet/>} />
+      <Route path="/Meals" element={<MealList/>} />
+       <Route path="/Meals/New-Meal" element={<NewMeal/>} />
       <Route path='/meal-plans' element={<MeatPlans/>} />
       <Route path='/Patience/:id' element={<UserAdmin/>} />
       <Route path='/exercise' element={<Excercise/>} />

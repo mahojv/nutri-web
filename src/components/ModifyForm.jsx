@@ -1,47 +1,42 @@
-import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form';
 import { modifyUsers } from '../axios/users/Users';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
 
 export default function ModifyForm({ userData }) {
-    const { id } = useParams()
-
-    const { register, handleSubmit, watch, reset } = useForm();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const { register, handleSubmit, reset, control } = useForm();
+    const [startDate, setStartDate] = useState(null);
 
     useEffect(() => {
         if (userData) {
-            reset(userData); 
+            reset(userData);
+            if (userData.nxtvisit) {
+                setStartDate(new Date(userData.nxtvisit));
+            }
         }
     }, [userData, reset]);
 
     async function handleUserModify(requestData) {
         try {
-            //   requestData.schools = [requestData.schools];
-            console.log(requestData)
+            if (startDate) {
+                requestData.nxtvisit = startDate.toISOString();
+            }
             const data = await modifyUsers(id, requestData);
             if (data === 200) {
-
                 Swal.fire({
                     title: "Usuario Modificado con éxito!",
                     icon: "success",
                     draggable: true
                 });
-                navigate(-1)
+                navigate(-1);
             }
         } catch (error) {
-            console.error("Error al registrar usuario", error);
-            if (
-                error.response &&
-                error.response.data &&
-                error.response.data.message
-            ) {
-                setErrorMessage(error.response.data.message);
-            } else {
-                setErrorMessage(
-                    "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
-                );
-            }
+            console.error("Error al modificar usuario", error);
         }
     }
 
@@ -114,8 +109,27 @@ export default function ModifyForm({ userData }) {
                         required
                         className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
                     />
+                    <div className='flex flex-col items-center w-full'>
 
-                    <input type="hidden" {...register("status")} />
+                        <label htmlFor="nxtvisit">Próxima Visita</label>
+                        <Controller
+                            control={control}
+                            name="nxtvisit"
+                            defaultValue={startDate}
+                            render={({ field }) => (
+                                <DatePicker
+                                    placeholderText="Selecciona fecha"
+                                    selected={startDate}
+                                    onChange={(date) => {
+                                        setStartDate(date);
+                                        field.onChange(date);
+                                    }}
+                                    dateFormat="dd/MM/yyyy"
+                                    className="border border-gray-400 px-4 mb-2 w-full h-10 rounded-md"
+                                />
+                            )}
+                        />
+                    </div>
 
 
 

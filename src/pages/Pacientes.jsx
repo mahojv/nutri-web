@@ -16,7 +16,7 @@ export default function Pacientes() {
                 console.error(error);
             });
     }, []);
-    console.log(uData)
+
 
     const filteredData = uData.filter(item => {
         if (!search) return true; // si no hay filtro, devuelve todos

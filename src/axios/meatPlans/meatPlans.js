@@ -29,3 +29,27 @@ export async function createDiet(request) {
     throw error;
   }
 }
+
+
+export async function deleteMeal(id) {
+  
+
+  try {
+console.log(id)
+    const { status } = await instance.delete(`/comidas/${id}`);
+    return status;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createMeal(request) {
+
+  try {
+    console.log(request)
+    const { status } = await instance.post(`/comidas`, request);
+    return status;
+  } catch (error) {
+    throw error;
+  }
+}

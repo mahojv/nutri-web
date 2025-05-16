@@ -5,7 +5,7 @@ import useFilterDates from '../hooks/useFilterDates';
 export default function Home() {
 
   const [usersData, setUsersData] = useState([])
-  const [free, setFree] = useState(false)
+
 
   useEffect(() => {
     users()
@@ -15,12 +15,8 @@ export default function Home() {
       });
   }, []);
 
-  console.log(usersData)
-
 const [today, assignmentsForToday, assignmentsThisWeek, assignmentsThisMonth] = useFilterDates(usersData)
 
-
-  console.log(assignmentsThisMonth)
 
   return (
     <div className='flex flex-col gap-5 items-center   justify-center'>

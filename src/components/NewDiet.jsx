@@ -10,18 +10,12 @@ import Swal from 'sweetalert2';
 export default function NewDiet() {
     const navigate = useNavigate()
     // Lista de states
-
-
     const { register, handleSubmit, watch } = useForm();
     const [roles, meal, userList] = useCreate()
-
-    const selectedRoleId = watch("role_id");
 
     function handleClose() {
         navigate(-1)
     }
-
-
     async function handleUserCreate(requestData) {
         try {
             requestData.comidas = seleccionadas.map(item => item.value);
@@ -51,17 +45,11 @@ export default function NewDiet() {
             }
         }
     }
-
     const opciones = meal.map(r => ({ value: r.id, label: r.name }));
-
-
     const [seleccionadas, setSeleccionadas] = useState([]);
-
     const handleChange = (selecciones) => {
         setSeleccionadas(selecciones);
     };
-
-
 
     return (
         <div>
@@ -89,13 +77,6 @@ export default function NewDiet() {
                 </div>
 
                 <h2 className="font-semibold text-3xl">Nuevo Usuario</h2>
-
-                {/* Display error message
-        {errorMessage && (
-          <div className="bg-red-100 text-red-700 px-4 py-2 rounded-md mt-4 mb-2 w-[90%] max-w-[450px]">
-            {errorMessage}
-          </div>
-        )} */}
 
                 <form
                     className="flex flex-wrap border gap-1 mt-4 w-[90%] max-w-[450px] justify-center bg-white shadow-lg p-6 rounded-md"

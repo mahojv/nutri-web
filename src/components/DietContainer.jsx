@@ -16,25 +16,14 @@ export default function DietContainer() {
     }, []);
 
     const filterDiets = meal.filter(item => item.user.id === Number(id));
-
-
     const todasLasComidas = filterDiets.flatMap(dieta => dieta.comida || []);
-
     return (
         <div className='w-full  flex flex-col items-center gap-4 '>
-
             {todasLasComidas.length > 0 ?
-
                 (
                     todasLasComidas.map(item => {
-
-
                         return (
-
-
-
                             <MeatCard
-
                                 item={item}
 
                             />
@@ -44,12 +33,7 @@ export default function DietContainer() {
                 )
                 :
                 <p>Sin comidas asignadas</p>
-
-
             }
-
-
-
         </div>
     )
 }
