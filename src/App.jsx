@@ -5,7 +5,6 @@ import AuthLayout from './components/layouts/AuthLayout'
 import Home from './pages/Home'
 import Pacientes from './pages/Pacientes'
 import MeatPlans from './pages/MeatPlans'
-import Excercise from './pages/Excercise'
 import NewUserForm from './components/NewUserForm'
 import NewDiet from './components/NewDiet'
 import UserAdmin from './components/UserAdmin'
@@ -26,7 +25,6 @@ export default function App() {
        <Route path="/Meals/New-Meal" element={<NewMeal/>} />
       <Route path='/meal-plans' element={<MeatPlans/>} />
       <Route path='/Patience/:id' element={<UserAdmin/>} />
-      <Route path='/exercise' element={<Excercise/>} />
       <Route
             path="/forbiden"
             element={<h1>No tiene Permisos para acceder a este contenido</h1>}

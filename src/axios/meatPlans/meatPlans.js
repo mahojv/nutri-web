@@ -22,7 +22,7 @@ export async function getMeals() {
 export async function createDiet(request) {
 
   try {
-    console.log(request)
+
     const { status } = await instance.post(`/dieta`, request);
     return status;
   } catch (error) {
@@ -32,10 +32,10 @@ export async function createDiet(request) {
 
 
 export async function deleteMeal(id) {
-  
+
 
   try {
-console.log(id)
+
     const { status } = await instance.delete(`/comidas/${id}`);
     return status;
   } catch (error) {
@@ -46,7 +46,7 @@ console.log(id)
 export async function createMeal(request) {
 
   try {
-    console.log(request)
+
     const { status } = await instance.post(`/comidas`, request);
     return status;
   } catch (error) {

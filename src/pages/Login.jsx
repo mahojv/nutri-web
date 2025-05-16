@@ -11,7 +11,6 @@ export default function Login() {
             const requestData = Object.fromEntries(formdata.entries())
 
             const data = await login(requestData)
-            console.log(data)
 
             if (data.status === 'ok') {
                 navigate('/');
